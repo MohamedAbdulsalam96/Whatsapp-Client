@@ -29,7 +29,7 @@ class WhatsAppMessages(Document):
 		credit=c.get("data")
 		x=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
 		if x<wts.current_credits:
-    		frappe.throw("You doesn't Have Enough Credit")
+			frappe.throw("You doesn't Have Enough Credit")
 		self.validate_image_attachment()
 
 		if self.message_type == "Audio" and self.media_file:
