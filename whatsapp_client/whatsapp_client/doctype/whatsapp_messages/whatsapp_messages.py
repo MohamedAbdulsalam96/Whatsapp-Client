@@ -430,7 +430,7 @@ def process_status_update(status: Dict):
 	)
 
 
-def get_media_extention(message_doc: WhatsAppMessage, content_type: str) -> str:
+def get_media_extention(message_doc: WhatsAppMessages, content_type: str) -> str:
 	return message_doc.media_filename or (
 		"attachment_." + content_type.split(";")[0].split("/")[1]
 	)
