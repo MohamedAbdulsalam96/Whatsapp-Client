@@ -1,7 +1,7 @@
 // Copyright (c) 2022, Hussain Nagaria and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("WhatsApp Message", {
+frappe.ui.form.on("WhatsApp Messages", {
 	refresh: function (frm) {
 	//   if (!frm.doc.id) {
 		// const btn = frm.add_custom_button("Send Message", () => {

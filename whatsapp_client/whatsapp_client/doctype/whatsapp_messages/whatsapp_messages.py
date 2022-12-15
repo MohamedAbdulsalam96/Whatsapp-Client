@@ -163,7 +163,7 @@ class WhatsAppMessages(Document):
 				"doctype": "File",
 				"file_name": file_name,
 				"content": response.content,
-				"attached_to_doctype": "WhatsApp Message",
+				"attached_to_doctype": "WhatsApp Messages",
 				"attached_to_name": self.name,
 				"attached_to_field": "media_file",
 			}
@@ -426,7 +426,7 @@ def process_status_update(status: Dict):
 	status = status.get("status")
 
 	frappe.db.set_value(
-		"WhatsApp Message", {"id": message_id}, "status", status.title()
+		"WhatsApp Messages", {"id": message_id}, "status", status.title()
 	)
 
 
