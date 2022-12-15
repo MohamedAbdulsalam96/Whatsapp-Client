@@ -24,7 +24,7 @@ def handle():
 			create_waba_whatsapp_message(message)
 
 		frappe.get_doc(
-			{"doctype": "Whatsapp Webhook Log", "payload": frappe.as_json(form_dict)}
+			{"doctype": "Whatsapp Webhook Logs", "payload": frappe.as_json(form_dict)}
 		).insert(ignore_permissions=True)
 	except Exception:
 		frappe.log_error("Whatsapp Webhook Log Error", frappe.get_traceback())
