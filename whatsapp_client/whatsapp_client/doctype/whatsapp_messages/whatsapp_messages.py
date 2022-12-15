@@ -357,7 +357,7 @@ class WhatsAppMessages(Document):
 			frappe.throw(response.json().get("error").get("message"))
 
 
-def create_whatsapp_message(message: Dict) -> WhatsAppMessage:
+def create_whatsapp_message(message: Dict) -> WhatsAppMessages:
 	message_type = message.get("type")
 
 	# Create whatsapp contact doc if not exists
