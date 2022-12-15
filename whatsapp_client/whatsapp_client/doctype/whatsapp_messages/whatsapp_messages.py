@@ -327,10 +327,10 @@ class WhatsAppMessages(Document):
 			credit=c.get("data")
 			doc=frappe.new_doc("Whatsapp Api Call Log")
 			doc.api_call="Seen"
-			doc.opening_credit=wts.current_credits
+			doc.opening_credit=flt(wts.current_credits)
 			doc.credit_in=0
 			doc.credit_out=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
-			doc.balance=flt(wts.current_credits)-doc.credit_out
+			doc.balance=flt(wts.current_credits)-flt(doc.credit_out)
 			doc.save(ignore_permissions=True)
 			url3="https://erp.dexciss.com/api/resource/Subcription%20App%20API%20Log"
 			payload4 = json.dumps({
@@ -340,9 +340,9 @@ class WhatsAppMessages(Document):
 					"customer":a.get("customer"),
 					"api_call":"Seen",
 					"api_call_url":endpoint,
-					"opening_credit":wts.current_credits,
+					"opening_credit":flt(wts.current_credits),
 					"credit_in":0,
-					"credit_out":credit.get("credit_consumed")/credit.get("amount_per_credit"),
+					"credit_out":flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"balance":flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"api_payload":json
 					}
@@ -372,7 +372,7 @@ def create_whatsapp_message(message: Dict) -> WhatsAppMessage:
 
 	message_data = frappe._dict(
 		{
-			"doctype": "WhatsApp Message",
+			"doctype": "WhatsApp Messages",
 			"type": "Incoming",
 			"status": "Received",
 			"from": message.get("from"),

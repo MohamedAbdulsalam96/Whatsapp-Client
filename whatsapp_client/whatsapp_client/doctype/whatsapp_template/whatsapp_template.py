@@ -26,7 +26,7 @@ class WhatsappTemplate(Document):
 		c=eval(response.text)
 		credit=c.get("data")
 		x=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
-		if x<wts.current_credits:
+		if x<flt(wts.current_credits):
 			frappe.throw("You doesn't Have Enough Credit")
 	def before_cancel(self):
 		wts = frappe.get_doc("Whatsapp Settings")
@@ -64,9 +64,9 @@ class WhatsappTemplate(Document):
 			credit=c.get("data")
 			doc=frappe.new_doc("Whatsapp Api Call Log")
 			doc.api_call="Delete Template"
-			doc.opening_credit=wts.current_credits
+			doc.opening_credit=flt(wts.current_credits)
 			doc.credit_in=0
-			doc.credit_out=credit.get("credit_consumed")/credit.get("amount_per_credit")
+			doc.credit_out=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
 			doc.balance=flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
 			doc.save(ignore_permissions=True)
 			url3="https://erp.dexciss.com/api/resource/Subcription%20App%20API%20Log"
@@ -77,9 +77,9 @@ class WhatsappTemplate(Document):
 					"customer":a.get("customer"),
 					"api_call":"Template",
 					"api_call_url":url,
-					"opening_credit":wts.current_credits,
+					"opening_credit":flt(wts.current_credits),
 					"credit_in":0,
-					"credit_out":credit.get("credit_consumed")/credit.get("amount_per_credit"),
+					"credit_out":flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"balance":flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"api_payload":"Delete Template APi"
 					}
@@ -215,9 +215,9 @@ class WhatsappTemplate(Document):
 			credit=c.get("data")
 			doc=frappe.new_doc("Whatsapp Api Call Log")
 			doc.api_call="Create Template"
-			doc.opening_credit=wts.current_credits
+			doc.opening_credit=flt(wts.current_credits)
 			doc.credit_in=0
-			doc.credit_out=credit.get("credit_consumed")/credit.get("amount_per_credit")
+			doc.credit_out=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
 			doc.balance=flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
 			doc.save(ignore_permissions=True)
 			url3="https://erp.dexciss.com/api/resource/Subcription%20App%20API%20Log"
