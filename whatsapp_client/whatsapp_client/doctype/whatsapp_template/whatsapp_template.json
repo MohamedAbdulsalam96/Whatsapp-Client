@@ -1,0 +1,332 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "WTA.####",
+ "creation": "2022-12-14 17:48:16.810709",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "template_details_section",
+  "status",
+  "category",
+  "column_break_6",
+  "doctype_name",
+  "language",
+  "message_content_section",
+  "header",
+  "media_type",
+  "text",
+  "media",
+  "body_section",
+  "body_text",
+  "column_break_14",
+  "help",
+  "section_break_18",
+  "variables",
+  "footer_section",
+  "footer_text",
+  "buttons_section",
+  "button_type",
+  "type_of_action",
+  "button_text",
+  "country",
+  "dial_code",
+  "phone_number",
+  "add_another_button",
+  "column_break_26",
+  "type_of_action1",
+  "button_text1",
+  "url_type",
+  "website_url",
+  "button_text2",
+  "button_text3",
+  "url_type1",
+  "website_url1",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "In-Review",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "In-Review\nRejected\nActive - Quality pending\nActive - High Quality\nActive - Medium Quality\nActive - Low Quality\nPaused\nDisabled\nAppeal Requested\nAPPROVED",
+   "read_only": 1
+  },
+  {
+   "description": "Transactional - Send account updates, order updates, alerts and more to share important information. \nMarketing - Send promotional offers, product announcements and more to increase awareness and engagement. \n<br>One-Time Password - Send codes that allow your customers to access their accounts.",
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "label": "Category",
+   "options": "Transactional\nMarketing\nOne-time passwords"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "doctype_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "DocType Name",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Language",
+   "options": "Language"
+  },
+  {
+   "fieldname": "message_content_section",
+   "fieldtype": "Section Break",
+   "label": "Message Content"
+  },
+  {
+   "fieldname": "header",
+   "fieldtype": "Select",
+   "label": "Header",
+   "options": "None\nText\nMedia"
+  },
+  {
+   "fieldname": "media_type",
+   "fieldtype": "Select",
+   "label": "Media Type",
+   "options": "Document\nImage\nVideo"
+  },
+  {
+   "depends_on": "eval:doc.header==\"Text\"",
+   "description": "Only 60 characters are allowed. WhiteSpace is also counted.\nNo special characters like \"#\" or \"*\" is allowed for header text",
+   "fieldname": "text",
+   "fieldtype": "Small Text",
+   "label": "Text"
+  },
+  {
+   "depends_on": "eval:doc.header==\"Media\"",
+   "description": "You can attach Image, Video or a Document only.",
+   "fieldname": "media",
+   "fieldtype": "Attach",
+   "label": "Media"
+  },
+  {
+   "fieldname": "body_section",
+   "fieldtype": "Section Break",
+   "label": "Body"
+  },
+  {
+   "description": "Only 1024 characters are allowed. WhiteSpace is also counted.",
+   "fieldname": "body_text",
+   "fieldtype": "Markdown Editor",
+   "in_list_view": 1,
+   "label": "Body Text",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<h3>Help</h3>\n<h4>Notes:</h4>\n\n<ol>\n1)To make text bold, add \"*\" at start and the end of the text.<br>\n2)To make text italic, add \"_\" at start and the end of the text.<br>\n3)To make text strike through, add \"~\" at start and the end of the text.<br> \n4)To add monospace, add \" ``` \" at start and the end of the text.\n5){{1}} use For dynamic Field\n<br>\n</ol>\n\n<h4>Examples</h4>\n<ol>\n1)*This is Bold Text*.<br>\n 2)_This is Italic Text_<br>\n3)~This is Strike through~<br>\n4)```This text has monospace```<br>\n5)Hello {{1}}\n </ol>"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "variables",
+   "fieldtype": "Table",
+   "label": "Variables",
+   "options": "WhatsApp Variables",
+   "search_index": 1
+  },
+  {
+   "fieldname": "footer_section",
+   "fieldtype": "Section Break",
+   "label": "Footer"
+  },
+  {
+   "description": "Only 60 characters are allowed. WhiteSpace is also counted.",
+   "fieldname": "footer_text",
+   "fieldtype": "Small Text",
+   "label": "Footer Text"
+  },
+  {
+   "fieldname": "buttons_section",
+   "fieldtype": "Section Break",
+   "label": "Buttons"
+  },
+  {
+   "fieldname": "button_type",
+   "fieldtype": "Select",
+   "label": "Button Type",
+   "options": "None\nCall to Action\nQuick Reply"
+  },
+  {
+   "depends_on": "eval:doc.button_type==\"Call to Action\"",
+   "fieldname": "type_of_action",
+   "fieldtype": "Select",
+   "label": "Type of Action",
+   "options": "Call phone number\nVisit website"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Call phone number\" && doc.button_type=='Call to Action'",
+   "description": "Max 25 characters are allowed. WhiteSpaces are also counted",
+   "fieldname": "button_text",
+   "fieldtype": "Data",
+   "label": "Button Text"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Call phone number\" && doc.button_type=='Call to Action'",
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Dialing Codes"
+  },
+  {
+   "depends_on": "eval:doc.button_type == \"Call to Action\"",
+   "fetch_from": "country.dialing_code",
+   "fieldname": "dial_code",
+   "fieldtype": "Data",
+   "label": "Dial Code"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Call phone number\" && doc.button_type=='Call to Action'",
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.button_type==\"Call to Action\"",
+   "fieldname": "add_another_button",
+   "fieldtype": "Check",
+   "label": "Add another button"
+  },
+  {
+   "depends_on": "eval:doc.add_another_button==1",
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Visit Website",
+   "depends_on": "eval:doc.add_another_button==1",
+   "fieldname": "type_of_action1",
+   "fieldtype": "Data",
+   "label": "Type of Action",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.add_another_button==1",
+   "description": "Max 25 characters are allowed. WhiteSpaces are also counted",
+   "fieldname": "button_text1",
+   "fieldtype": "Data",
+   "label": "Button Text"
+  },
+  {
+   "depends_on": "eval:doc.add_another_button==1",
+   "fieldname": "url_type",
+   "fieldtype": "Select",
+   "label": "URL Type",
+   "options": "Static\nDynamic"
+  },
+  {
+   "default": "https://www.example.com",
+   "depends_on": "eval:doc.add_another_button==1",
+   "fieldname": "website_url",
+   "fieldtype": "Data",
+   "label": "Website URL"
+  },
+  {
+   "depends_on": "eval:doc.button_type=='Quick Reply'",
+   "fieldname": "button_text2",
+   "fieldtype": "Data",
+   "label": "Button Text"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Visit website\" && doc.button_type=='Call to Action'",
+   "fieldname": "button_text3",
+   "fieldtype": "Data",
+   "label": "Button Text"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Visit website\" && doc.button_type=='Call to Action'",
+   "fieldname": "url_type1",
+   "fieldtype": "Data",
+   "label": "URL Type"
+  },
+  {
+   "depends_on": "eval:doc.type_of_action==\"Visit website\" && doc.button_type=='Call to Action'",
+   "fieldname": "website_url1",
+   "fieldtype": "Data",
+   "label": "Website URL"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Whatsapp Template",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-12-14 22:23:07.100639",
+ "modified_by": "Administrator",
+ "module": "whatsapp-client",
+ "name": "Whatsapp Template",
+ "name_case": "UPPER CASE",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Whatsapp Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

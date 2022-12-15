@@ -1,0 +1,183 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-13 17:42:14.490096",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable",
+  "section_break_2",
+  "access_token",
+  "phone_number_id",
+  "project_hash",
+  "app_hash",
+  "column_break_4",
+  "business_account_id",
+  "webhook_verify_token",
+  "document_download_path",
+  "attachment_preferences_section",
+  "automatically_download_images",
+  "column_break_9",
+  "automatically_download_audio",
+  "automatically_download_videos",
+  "section_break_15",
+  "api_key",
+  "column_break_17",
+  "api_secret",
+  "credit_section_section",
+  "current_credits",
+  "buy_credit"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "depends_on": "eval:doc.enable==1",
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "access_token",
+   "fieldtype": "Password",
+   "label": "Access Token",
+   "length": 250
+  },
+  {
+   "fieldname": "phone_number_id",
+   "fieldtype": "Data",
+   "label": "Phone Number ID"
+  },
+  {
+   "fieldname": "project_hash",
+   "fieldtype": "Data",
+   "label": "Project Hash"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "business_account_id",
+   "fieldtype": "Data",
+   "label": "Business Account ID"
+  },
+  {
+   "fieldname": "webhook_verify_token",
+   "fieldtype": "Data",
+   "label": "Webhook Verify Token"
+  },
+  {
+   "fieldname": "document_download_path",
+   "fieldtype": "Data",
+   "label": "Document Download Path"
+  },
+  {
+   "depends_on": "eval:doc.enable==1",
+   "fieldname": "attachment_preferences_section",
+   "fieldtype": "Section Break",
+   "label": "Attachment Preferences"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatically_download_images",
+   "fieldtype": "Check",
+   "label": "Automatically Download Images"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatically_download_audio",
+   "fieldtype": "Check",
+   "label": "Automatically Download Audio"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatically_download_videos",
+   "fieldtype": "Check",
+   "label": "Automatically Download Videos"
+  },
+  {
+   "depends_on": "eval:doc.enable==1",
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Data",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "api_secret",
+   "fieldtype": "Password",
+   "label": "API Secret "
+  },
+  {
+   "depends_on": "eval:doc.enable==1",
+   "fieldname": "credit_section_section",
+   "fieldtype": "Section Break",
+   "label": "Credit Section"
+  },
+  {
+   "fieldname": "current_credits",
+   "fieldtype": "Data",
+   "label": "Current Credits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "buy_credit",
+   "fieldtype": "Button",
+   "label": "Buy Credit"
+  },
+  {
+   "fieldname": "app_hash",
+   "fieldtype": "Data",
+   "label": "App Hash"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-12-13 17:47:51.738350",
+ "modified_by": "Administrator",
+ "module": "whatsapp-client",
+ "name": "Whatsapp Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Whatsapp Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
