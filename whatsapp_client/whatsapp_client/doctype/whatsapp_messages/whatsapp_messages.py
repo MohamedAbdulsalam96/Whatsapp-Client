@@ -66,13 +66,14 @@ class WhatsAppMessages(Document):
 		)
 		api_base = "https://graph.facebook.com/v15.0"
 		phone_number_id = frappe.db.get_single_value("Whatsapp Settings", "phone_number_id")
-
+		if self.to:
+			doc=frappe.get_doc("Contact",self.to)
 		endpoint = f"{api_base}/{phone_number_id}/messages"
 
 		response_data = {
 			"messaging_product": "whatsapp",
 			"recipient_type": "individual",
-			"to": self.to,
+			"to": doc.whatsapp_no,
 			"type": self.message_type.lower(),
 		}
 		print(response_data)
