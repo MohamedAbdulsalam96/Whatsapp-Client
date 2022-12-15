@@ -7,6 +7,7 @@ from pymysql import NULL
 import requests
 import json
 import os
+from frappe.utils.data import flt
 
 from frappe.model.document import Document
 
@@ -18,7 +19,7 @@ class WhatsappTemplate(Document):
 		url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Message"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 		payload3 = ""
 		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 			'Content-Type': 'application/json'
 			}
 		response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -45,7 +46,7 @@ class WhatsappTemplate(Document):
 			url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 			payload2 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -55,7 +56,7 @@ class WhatsappTemplate(Document):
 			url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 			payload3 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -84,7 +85,7 @@ class WhatsappTemplate(Document):
 					}
 					})
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("POST", url3, headers=headers, data=payload4)
@@ -196,7 +197,7 @@ class WhatsappTemplate(Document):
 			url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 			payload2 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -206,7 +207,7 @@ class WhatsappTemplate(Document):
 			url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 			payload3 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -229,13 +230,13 @@ class WhatsappTemplate(Document):
 					"api_call_url":url,
 					"opening_credit":wts.current_credits,
 					"credit_in":0,
-					"credit_out":credit.get("credit_consumed")/credit.get("amount_per_credit"),
+					"credit_out":flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"balance":flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
 					"api_payload":"Delete Template APi"
 					}
 					})
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("POST", url3, headers=headers, data=payload4)

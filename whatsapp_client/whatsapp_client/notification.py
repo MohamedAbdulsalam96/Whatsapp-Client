@@ -405,7 +405,7 @@ def get_context(context):
 			url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Notification"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 			payload3 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -513,7 +513,7 @@ def get_context(context):
 								url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 								payload2 = ""
 								headers = {
-									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 									'Content-Type': 'application/json'
 									}
 								response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -523,7 +523,7 @@ def get_context(context):
 								url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Notification"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 								payload3 = ""
 								headers = {
-									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 									'Content-Type': 'application/json'
 									}
 								response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -552,7 +552,7 @@ def get_context(context):
 										}
 										})
 								headers = {
-									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+									'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 									'Content-Type': 'application/json'
 									}
 								response = requests.request("POST", url3, headers=headers, data=payload4)
@@ -595,7 +595,7 @@ def get_context(context):
 										url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 										payload2 = ""
 										headers = {
-											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 											'Content-Type': 'application/json'
 											}
 										response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -605,7 +605,7 @@ def get_context(context):
 										url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Notification"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 										payload3 = ""
 										headers = {
-											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 											'Content-Type': 'application/json'
 											}
 										response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -627,7 +627,7 @@ def get_context(context):
 												}
 												})
 										headers = {
-											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+											'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 											'Content-Type': 'application/json'
 											}
 										response = requests.request("POST", url3, headers=headers, data=payload4)
@@ -683,7 +683,7 @@ def get_context(context):
 							url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 							payload2 = ""
 							headers = {
-								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 								'Content-Type': 'application/json'
 								}
 							response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -693,7 +693,7 @@ def get_context(context):
 							url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Notification"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 							payload3 = ""
 							headers = {
-								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 								'Content-Type': 'application/json'
 								}
 							response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -715,7 +715,7 @@ def get_context(context):
 									}
 									})
 							headers = {
-								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+								'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 								'Content-Type': 'application/json'
 								}
 							response = requests.request("POST", url3, headers=headers, data=payload4)

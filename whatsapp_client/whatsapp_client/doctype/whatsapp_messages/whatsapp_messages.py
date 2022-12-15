@@ -8,6 +8,7 @@ import mimetypes
 from typing import Dict
 from functools import lru_cache
 from frappe.model.document import Document
+from frappe.utils.data import flt
 
 
 MEDIA_TYPES = ("image", "sticker", "document", "audio", "video")
@@ -21,14 +22,14 @@ class WhatsAppMessages(Document):
 		url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Message"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 		payload3 = ""
 		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 			'Content-Type': 'application/json'
 			}
 		response = requests.request("GET", url4, headers=headers, data=payload3)
 		c=eval(response.text)
 		credit=c.get("data")
 		x=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
-		if x<wts.current_credits:
+		if x<flt(wts.current_credits):
 			frappe.throw("You doesn't Have Enough Credit")
 		self.validate_image_attachment()
 
@@ -92,7 +93,7 @@ class WhatsAppMessages(Document):
 		url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 		payload2 = ""
 		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 			'Content-Type': 'application/json'
 			}
 		response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -102,7 +103,7 @@ class WhatsAppMessages(Document):
 		url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Message"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 		payload3 = ""
 		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 			'Content-Type': 'application/json'
 			}
 		response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -124,7 +125,7 @@ class WhatsAppMessages(Document):
 				}
 				})
 		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 			'Content-Type': 'application/json'
 			}
 		response = requests.request("POST", url3, headers=headers, data=payload4)
@@ -245,7 +246,7 @@ class WhatsAppMessages(Document):
 			url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 			payload2 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -255,7 +256,7 @@ class WhatsAppMessages(Document):
 			url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],["`tabRate Card`.api_call","=","Message"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 			payload3 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -277,7 +278,7 @@ class WhatsAppMessages(Document):
 					}
 					})
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("POST", url3, headers=headers, data=payload4)
@@ -308,7 +309,7 @@ class WhatsAppMessages(Document):
 			url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 			payload2 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url2, headers=headers, data=payload2)
@@ -318,7 +319,7 @@ class WhatsAppMessages(Document):
 			url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],,["`tabRate Card`.api_call","=","Seen"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
 			payload3 = ""
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("GET", url4, headers=headers, data=payload3)
@@ -347,7 +348,7 @@ class WhatsAppMessages(Document):
 					}
 					})
 			headers = {
-				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.api_secret),
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
 				'Content-Type': 'application/json'
 				}
 			response = requests.request("POST", url3, headers=headers, data=payload4)
