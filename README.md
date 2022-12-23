@@ -41,7 +41,7 @@ $ bench --site <site-name> install-app whatsapp-client
 ![image](https://github.com/asoral/Whatsapp-Client/blob/38faaef3acec51e2be9850f9f9c92a13893a1a76/wp_settings.jpg)
 
 * Buy credits by simply clicking on the purchase credit button on whatsapp settings page and use them all up!
-![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/salord.png?token=GHSAT0AAAAAAB3TCCKXA57UKOQ2AG55OS7IY4AW3JQ)
+![image](https://github.com/asoral/Whatsapp-Client/blob/38faaef3acec51e2be9850f9f9c92a13893a1a76/wp_settings.jpg)
 
 * Send and receive whatsapp messages in 'WhatsApp Message' doctype. Pay attention to the status as it keeps getting updated based on the webhook from meta.
 ![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/signbutton.png?token=GHSAT0AAAAAAB3TCCKW5IDHIJDAGNJ2APIMY4AW3YQ)
