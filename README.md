@@ -38,7 +38,7 @@ $ bench --site <site-name> install-app whatsapp-client
 ## Functionality
  
 * Enable whatsApp settings and input the information as required.
-![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/dscuser.png?token=GHSAT0AAAAAAB3TCCKWRKTQHUNZPKLAJYKGY4AW2HQ)
+![image](https://github.com/asoral/Whatsapp-Client/blob/38faaef3acec51e2be9850f9f9c92a13893a1a76/wp_settings.jpg)
 
 * Buy credits by simply clicking on the purchase credit button on whatsapp settings page and use them all up!
 ![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/salord.png?token=GHSAT0AAAAAAB3TCCKXA57UKOQ2AG55OS7IY4AW3JQ)
