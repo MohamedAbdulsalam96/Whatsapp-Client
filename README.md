@@ -44,10 +44,10 @@ $ bench --site <site-name> install-app whatsapp-client
 ![image](https://github.com/asoral/Whatsapp-Client/blob/38faaef3acec51e2be9850f9f9c92a13893a1a76/wp_settings.jpg)
 
 * Send and receive whatsapp messages in 'WhatsApp Message' doctype. Pay attention to the status as it keeps getting updated based on the webhook from meta.
-![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/signbutton.png?token=GHSAT0AAAAAAB3TCCKW5IDHIJDAGNJ2APIMY4AW3YQ)
+![image](https://github.com/asoral/Whatsapp-Client/blob/6a60648e3b965a760c418e24ca4f24663e4d39a9/wp_msg.jpg)
 
 * You can also create WhatsApp message Template and use them in Notifications under "WhatsApp B2C" to send automated messages. Please remember you can only use "Approved" message templates to send canned-replies.
-![image](https://raw.githubusercontent.com/asoral/arofine_dsc/master/signed.png?token=GHSAT0AAAAAAB3TCCKX5FLHPRUCFLS4PTAMY4AW4CQ)
+![image](https://github.com/asoral/Whatsapp-Client/blob/6a60648e3b965a760c418e24ca4f24663e4d39a9/wp_template.jpg)
 
 ### WhatsApp message template approval process is dependent on Meta and will take sometime. It seems to take anywhere between 4 - 72 hours in our experience but may also vary.
 
