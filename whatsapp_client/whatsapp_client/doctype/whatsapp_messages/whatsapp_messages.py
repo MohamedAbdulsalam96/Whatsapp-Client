@@ -69,7 +69,12 @@ class WhatsAppMessages(Document):
 		if self.to:
 			doc=frappe.get_doc("Contact",self.to)
 		endpoint = f"{api_base}/{phone_number_id}/messages"
-
+		no=frappe.get_value("Contact",self.to,"whatsapp_no")
+		if not no:
+    		frappe.throw("Please select whatsapp no in contact")
+		doc=""
+		if self.to:
+			doc=frappe.get_doc("Contact",self.to)
 		response_data = {
 			"messaging_product": "whatsapp",
 			"recipient_type": "individual",
@@ -359,29 +364,46 @@ class WhatsAppMessages(Document):
 
 
 def create_whatsapp_message(message: Dict) -> WhatsAppMessages:
+	wts = frappe.get_doc("Whatsapp Settings")
+	waid=frappe.db.get_value("Whatsapp Message",{"id":message.get("id")},["name"])
+	if waid:
+		frappe.throw("Message Already Exist for id {0}".format(message.get("id")))
 	message_type = message.get("type")
 
 	# Create whatsapp contact doc if not exists
 	received_from = message.get("from")
-	if not frappe.db.exists("WABA WhatsApp Contact", {"name": received_from}):
-		frappe.get_doc(
-			{
-				"doctype": "WABA WhatsApp Contact",
-				"whatsapp_id": received_from,
-			}
-		).insert(ignore_permissions=True)
-
-	message_data = frappe._dict(
+	no=frappe.db.get_value("Contact",{"whatsapp_no":received_from},["name"])
+	message_data={}
+	if no:
+		message_data = frappe._dict(
 		{
-			"doctype": "WhatsApp Messages",
+			"doctype": "WhatsApp Message",
 			"type": "Incoming",
 			"status": "Received",
-			"from": message.get("from"),
+			"from": no,
 			"id": message.get("id"),
 			"message_type": message_type.title(),
 		}
-	)
-
+		)
+	if not frappe.db.exists("Contact", {"whatsapp_no": received_from}):
+		doc=frappe.new_doc("Contact")
+		doc.first_name=received_from,
+		doc.whatsapp_no=received_from
+		doc.append("phone_nos",{
+			"phone":received_from,
+			"is_whatsapp_number":1
+		})
+		doc.save(ignore_permissions=True)
+		message_data = frappe._dict(
+			{
+				"doctype": "WhatsApp Message",
+				"type": "Incoming",
+				"status": "Received",
+				"from": doc.name,
+				"id": message.get("id"),
+				"message_type": message_type.title(),
+			}
+		)
 	if message_type == "text":
 		message_data["message_body"] = message.get("text").get("body")
 	elif message_type in MEDIA_TYPES:
@@ -394,7 +416,54 @@ def create_whatsapp_message(message: Dict) -> WhatsAppMessages:
 		message_data["media_caption"] = message.get("document").get("caption")
 
 	message_doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
+	message_doc.submit()
+	url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
+	payload2 = ""
+	headers = {
+		'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
+		'Content-Type': 'application/json'
+		}
+	response = requests.request("GET", url2, headers=headers, data=payload2)
 
+	d=eval(response.text)
+	a=d.get("data")
+	url4="""https://erp.dexciss.com/api/resource/Subscription%20App?filters=[["name","=","{0}"],,["`tabRate Card`.api_call","=","Seen"]]&fields=["amount_per_credit","`tabRate Card`.api_call","`tabRate Card`.credit_consumed"]""".format(wts.app_hash)
+	payload3 = ""
+	headers = {
+		'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
+		'Content-Type': 'application/json'
+		}
+	response = requests.request("GET", url4, headers=headers, data=payload3)
+	c=eval(response.text)
+	credit=c.get("data")
+	doc=frappe.new_doc("Whatsapp Api Call Log")
+	doc.api_call="Seen"
+	doc.opening_credit=flt(wts.current_credits)
+	doc.credit_in=0
+	doc.credit_out=flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit"))
+	doc.balance=flt(wts.current_credits)-flt(doc.credit_out)
+	doc.save(ignore_permissions=True)
+	url3="https://erp.dexciss.com/api/resource/Subcription%20App%20API%20Log"
+	payload4 = json.dumps({
+		"data": {
+			"project":wts.project_hash,
+			"app":wts.app_hash,
+			"customer":a.get("customer"),
+			"api_call":"Seen",
+			"api_call_url":endpoint,
+			"opening_credit":flt(wts.current_credits),
+			"credit_in":0,
+			"credit_out":flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
+			"balance":flt(wts.current_credits)-flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),
+			"api_payload":json
+			}
+			})
+	headers = {
+		'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
+		'Content-Type': 'application/json'
+		}
+	response = requests.request("POST", url3, headers=headers, data=payload4)
+			
 	wants_automatic_image_downloads = frappe.db.get_single_value(
 		"Whatsapp Settings", "automatically_download_images"
 	)

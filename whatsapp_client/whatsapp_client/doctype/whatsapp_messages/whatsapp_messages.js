@@ -21,8 +21,7 @@ frappe.ui.form.on("WhatsApp Messages", {
 		!frm.doc.media_file
 	  ) {
 		const btn = frm.add_custom_button("Download Attachment File", () => {
-		  frm
-			.call({
+		  frm.call({
 			  doc: frm.doc,
 			  method: "download_media",
 			  btn,
