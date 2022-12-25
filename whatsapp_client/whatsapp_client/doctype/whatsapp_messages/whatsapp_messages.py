@@ -1,6 +1,7 @@
 # Copyright (c) 2022, Hussain Nagaria and contributors
 # For license information, please see license.txt
 
+import json
 import frappe
 import requests
 import mimetypes
@@ -71,7 +72,7 @@ class WhatsAppMessages(Document):
 		endpoint = f"{api_base}/{phone_number_id}/messages"
 		no=frappe.get_value("Contact",self.to,"whatsapp_no")
 		if not no:
-    		frappe.throw("Please select whatsapp no in contact")
+			frappe.throw("Please select whatsapp no in contact")
 		doc=""
 		if self.to:
 			doc=frappe.get_doc("Contact",self.to)
@@ -96,6 +97,8 @@ class WhatsAppMessages(Document):
 			if self.message_type == "Document":
 				response_data[self.message_type.lower()]["filename"] = self.media_filename
 				response_data[self.message_type.lower()]["caption"] = self.media_caption
+		wts = frappe.get_doc("Whatsapp Settings")
+
 		url2="""https://erp.dexciss.com/api/resource/Subscription%20Project?filters=[["name","=","{0}"], ["app","=","{1}"]]&fields=["*"]""".format(wts.project_hash,wts.app_hash)
 		payload2 = ""
 		headers = {
@@ -449,8 +452,8 @@ def create_whatsapp_message(message: Dict) -> WhatsAppMessages:
 			"project":wts.project_hash,
 			"app":wts.app_hash,
 			"customer":a.get("customer"),
-			"api_call":"Seen",
-			"api_call_url":endpoint,
+			"api_call":"Messages",
+			"api_call_url":"Receive",
 			"opening_credit":flt(wts.current_credits),
 			"credit_in":0,
 			"credit_out":flt(credit.get("credit_consumed"))/flt(credit.get("amount_per_credit")),

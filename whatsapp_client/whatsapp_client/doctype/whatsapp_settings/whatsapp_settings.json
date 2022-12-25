@@ -27,6 +27,10 @@
   "api_secret",
   "credit_section_section",
   "current_credits",
+  "credit",
+  "rate",
+  "column_break_24",
+  "amount",
   "buy_credit"
  ],
  "fields": [
@@ -144,12 +148,33 @@
    "fieldname": "app_hash",
    "fieldtype": "Data",
    "label": "App Hash"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "credit",
+   "fieldtype": "Data",
+   "label": "Credit"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Data",
+   "label": "Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-12-13 17:47:51.738350",
+ "modified": "2022-12-25 19:16:29.165557",
  "modified_by": "Administrator",
  "module": "whatsapp-client",
  "name": "Whatsapp Settings",
@@ -178,6 +203,5 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC",
- "states": []
+ "sort_order": "DESC"
 }
