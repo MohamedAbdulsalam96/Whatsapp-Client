@@ -18,19 +18,37 @@ class WhatsappSettings(Document):
 		response = requests.request("GET", url2, headers=headers, data=payload2)
 		if response.ok:
 			d=eval(response.text)
+			self.db_set('payment_request', d.get("name"))
 			import urllib.request  
 			webUrl = urllib.request.urlopen(str(d.get("url")))  
+			
 
-
+	@frappe.whitelist()
 	def get_credit(self):
-		wts = frappe.get_doc("Whatsapp Settings")  
-		url2="""https://erp.dexciss.com/api/resource/Payment%20Request/"""
-		payload2 = ""
-		headers = {
-			'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
-			'Content-Type': 'application/json'
-			}
-		response = requests.request("GET", url2, headers=headers, data=payload2)
+		val=frappe.db.get_value("Whatsapp Api Call Log",{"payment_request":self.payment_request},["name"])
+		if not val:
+			url2="""https://erp.dexciss.com/api/Payment%20Request?filters=[["name","=","{0}"]]&fields=["status","grand_total"]""".format(self.payment_request)
+			payload2 = ""
+			headers = {
+				'Authorization': 'token {0}:{1}'.format(wts.api_key,wts.get_password("api_secret")),
+				'Content-Type': 'application/json'
+				}
+			response = requests.request("GET", url2, headers=headers, data=payload2)
+			c=eval(response.text)
+			credit=c.get("data")
+			
+			if c.get("status")=="Paid":
+				if c.get("grand_total") and flt(self.rate)>0:
+					doc=frappe.new_doc("Whatsapp Api Call Log")
+					doc.api_call="Buy Credit"
+					doc.opening_credit=flt(self.current_credits)
+					doc.credit_in=0
+					doc.payment_request=d.get("name")
+					doc.credit_out=flt(c.get("grand_total"))/self.rate
+					doc.balance=flt(self.current_credits)-flt(doc.credit_out)
+					doc.save(ignore_permissions=True)
+
+		
 		
 
 	

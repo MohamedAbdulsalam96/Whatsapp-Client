@@ -23,5 +23,16 @@ frappe.ui.form.on('Whatsapp Settings', {
 				
 			}
 		  })
+	},
+	refresh: function(frm) {
+		frm.call({
+			doc: frm.doc,
+			method: "get_credit",
+			callback:function(r){
+				if(r.message){
+				}
+				
+			}
+		  })
 	}
 });

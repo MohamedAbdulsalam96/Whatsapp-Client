@@ -165,18 +165,64 @@ class WhatsappTemplate(Document):
 			})
 			components.append(footer)
 		if self.button_type in ("Call to Action","Quick Reply"):
-			if self.button_type == "Call to Action":
-				ph = self.dial_code + "" + self.phone_number
-				
+			if self.button_type=="Call to Action":
+				if self.type_of_action == "Call phone number":
+					ph = self.dial_code + "" + self.phone_number
+					
+					buttons.update({
+						"type":"BUTTONS",
+						"buttons":[{"type":"PHONE_NUMBER","text":self.button_text,"phone_number":ph}]
+							
+					})
+					components.append(buttons)
+					if self.add_another_button==1:
+						if self.url_type=="Static":
+							buttons.update({
+							"type":"BUTTONS",
+							"buttons":[{
+							"type":"URL",
+							"text":self.button_text3,
+							"url":self.website_url1}]
+							})
+							components.append(buttons)
+						if self.url_type=="Dynamic":
+							buttons.update({
+							"type":"BUTTONS",
+							"buttons":[{
+							"type":"URL",
+							"text":self.button_text3,
+							"url":self.website_url1}]
+							})
+							components.append(buttons)
+				if self.type_of_action == "Visit website":
+					print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77")
+					if self.url_type1=="Static":
+						buttons.update({
+							"type":"BUTTONS",
+							"buttons":[{
+							"type":"URL",
+							"text":self.button_text3,
+							"url":self.website_url1}]
+						})
+						components.append(buttons)
+					if self.url_type1=="Dynamic":
+						buttons.update({
+							"type":"BUTTONS",
+							"buttons":[{
+							"type":"URL",
+							"text":self.button_text3,
+							"url":self.website_url1}]
+						})
+						components.append(buttons)			
+
+			if self.button_type=="Quick Reply":
 				buttons.update({
 					"type":"BUTTONS",
-					"buttons":[{"type":"PHONE_NUMBER","text":self.button_text,"phone_number":ph}]
+					"buttons":[{"type":"Quick_Replay","text":self.button_text3}]
 						
 				})
-				components.append(buttons)
-		
-		
-		
+				components.append(buttons)	
+			
 		
 		pld.update({"components":components})
 		pld.update({
@@ -243,8 +289,10 @@ class WhatsappTemplate(Document):
 
 		rc = json.loads(response.content)
 		if response.status_code != 200:
-			
-			frappe.throw(rc["error"]["message"])
+			if rc["error"].get("error_msg_log"):
+				frappe.throw(rc["error"]["error_msg_log"])
+			else:
+    			frappe.throw(rc["error"]["message"])
 		else:
 			frappe.msgprint("Template Created With Id - {0} ".format(name))
 
