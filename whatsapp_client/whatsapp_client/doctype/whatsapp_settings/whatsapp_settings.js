@@ -10,5 +10,29 @@ frappe.ui.form.on('Whatsapp Settings', {
 				
 			}
 		  })
+	},
+	credit: function(frm) {
+		frm.call({
+			doc: frm.doc,
+			method: "get_rate_amount",
+			callback:function(r){
+				if(r.message){
+					frm.refresh_field("rate")
+					frm.refresh_field("amount")
+				}
+				
+			}
+		  })
+	},
+	refresh: function(frm) {
+		frm.call({
+			doc: frm.doc,
+			method: "get_credit",
+			callback:function(r){
+				if(r.message){
+				}
+				
+			}
+		  })
 	}
 });
