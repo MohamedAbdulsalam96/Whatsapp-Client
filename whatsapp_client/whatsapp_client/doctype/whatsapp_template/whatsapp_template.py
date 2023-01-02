@@ -292,7 +292,7 @@ class WhatsappTemplate(Document):
 			if rc["error"].get("error_msg_log"):
 				frappe.throw(rc["error"]["error_msg_log"])
 			else:
-    			frappe.throw(rc["error"]["message"])
+				frappe.throw(rc["error"]["message"])
 		else:
 			frappe.msgprint("Template Created With Id - {0} ".format(name))
 
